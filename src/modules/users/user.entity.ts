@@ -1,4 +1,5 @@
 import { Column, Entity, OneToMany } from 'typeorm';
+import { Exclude } from 'class-transformer';
 import { BaseEntity } from '../../common/entities/base.entity';
 import { Ticket } from '../tickets/ticket.entity';
 
@@ -16,6 +17,7 @@ export class User extends BaseEntity {
   @Column({ unique: true })
   email: string;
 
+  @Exclude()
   @Column()
   passwordHash: string;
 
@@ -26,6 +28,6 @@ export class User extends BaseEntity {
   })
   role: UserRole;
 
-  @OneToMany(() => Ticket, (ticket: Ticket) => ticket.user)
+  @OneToMany(() => Ticket, (ticket) => ticket.user)
   tickets: Ticket[];
 }
